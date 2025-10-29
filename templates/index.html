@@ -1,0 +1,70 @@
+<!-- HTML UI form will go here -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iris Flower Classification</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🌸 Iris Flower Classification</h1>
+        <p class="subtitle">Predict the species of Iris flower using Machine Learning</p>
+        
+        <div class="card">
+            <h2>Enter Flower Measurements (cm)</h2>
+            <form method="POST">
+                <div class="input-group">
+                    <label>Sepal Length:</label>
+                    <input type="number" name="sepal_length" step="0.1" 
+                           placeholder="e.g., 5.1" required 
+                           value="{{ input_values.sepal_length if input_values }}">
+                </div>
+                
+                <div class="input-group">
+                    <label>Sepal Width:</label>
+                    <input type="number" name="sepal_width" step="0.1" 
+                           placeholder="e.g., 3.5" required
+                           value="{{ input_values.sepal_width if input_values }}">
+                </div>
+                
+                <div class="input-group">
+                    <label>Petal Length:</label>
+                    <input type="number" name="petal_length" step="0.1" 
+                           placeholder="e.g., 1.4" required
+                           value="{{ input_values.petal_length if input_values }}">
+                </div>
+                
+                <div class="input-group">
+                    <label>Petal Width:</label>
+                    <input type="number" name="petal_width" step="0.1" 
+                           placeholder="e.g., 0.2" required
+                           value="{{ input_values.petal_width if input_values }}">
+                </div>
+                
+                <button type="submit" class="btn-predict">🔍 Predict Species</button>
+            </form>
+        </div>
+        
+        {% if prediction %}
+        <div class="result-card">
+            <h2>Prediction Result</h2>
+            <div class="prediction">{{ prediction }}</div>
+            {% if confidence %}
+            <p class="confidence">Confidence: {{ "%.2f"|format(confidence) }}%</p>
+            {% endif %}
+        </div>
+        {% endif %}
+        
+        <div class="info-card">
+            <h3>ℹ️ About Iris Species</h3>
+            <ul>
+                <li><strong>Iris-Setosa:</strong> Small petals, easily distinguishable</li>
+                <li><strong>Iris-Versicolor:</strong> Medium-sized petals</li>
+                <li><strong>Iris-Virginica:</strong> Largest petals</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
